@@ -3,7 +3,7 @@
     = post.title
     %small
       - date = post.created_at
-      =date.strftime("%d/%m/%Y : %H:%M ")      
+      =post.friendly_date     
   = link_to "edit", edit_post_path(post), class: 'post__button--edit'
   .post__body
     = post.body
@@ -17,7 +17,7 @@
       Add Comment
     .comment_add
       = simple_form_for Comment.new , :url => add_comments_path(post) , :remote => true do |f|
-        = f.input :content 
+        = f.input :body 
         = f.button :submit
 
   - for comment in  @comments
@@ -28,14 +28,18 @@
           %h4.media-heading
             = comment.user 
             %small
-              =date.strftime("%d/%m/%Y : %H:%M ") 
-          = comment.content
-          =comment.user_voted(current_user.id)
+              =date.strftime("%d/%m/%Y : %H:%M ")  
+          = comment.body
+          
+
           = simple_form_for Vote.new , :url => vote_up_path(comment), :remote => true do |f|
             %span.label.label-primary.votes_up
-              = comment.get_votes_up_count            
-            = f.button :submit,'+', :class => 'vote_button green'
+              = comment.get_votes_up_count
+            -if (!comment.user_voted(current_user.id))             
+              = f.button :submit,'+', :class => 'vote_button green'
+
           = simple_form_for Vote.new , :url => vote_down_path(comment), :remote => true do |f|
             %span.label.label-primary.votes_down 
               = comment.get_votes_down_count
-            = f.button :submit,'-', :class => 'vote_button red'
+            -if (!comment.user_voted(current_user.id)) 
+              = f.button :submit,'-', :class => 'vote_button red'

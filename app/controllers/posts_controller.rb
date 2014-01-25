@@ -44,6 +44,13 @@ class PostsController < ApplicationController
     end
   end
 
+  def comments
+  end
+
+  def hotness
+    return 3
+  end
+
   private
 
   def post_params

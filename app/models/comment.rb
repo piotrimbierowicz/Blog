@@ -5,13 +5,14 @@ class Comment
 	belongs_to :post
 	belongs_to :user
 	has_many :votes
-	field :content, type: String
+	field :body, type: String
+	field :abusive, type: Boolean, default: false
 
 	def get_votes_up_count
 		votes = self.votes
 		counter = 0
 		for vote in votes
-			if(vote.type == 1 )
+			if(vote.value == 1 )
 				counter+=1
 			end
 		end
@@ -22,7 +23,7 @@ class Comment
 		votes = self.votes
 		counter = 0
 		for vote in votes
-			if(vote.type == 0 )
+			if(vote.value == 0 )
 				counter+=1
 			end
 		end
@@ -38,4 +39,13 @@ class Comment
 		end
 		false
 	end
+
+	def abusive?		
+		puts 'dsadsadsadsadsadsadsa'
+		if(get_votes_down_count >= 3)			
+			puts get_votes_down_count
+			return true
+		end
+		return false		
+	end	
 end
