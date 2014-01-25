@@ -9,4 +9,6 @@ Easyblog::Application.routes.draw do
 
   end
   post 'add_comment/:id' => 'comments#create', as: 'add_comments'
+  post 'vote_up/:id' => 'vote#vote_up', as: 'vote_up'
+  post 'vote_down/:id' => 'vote#vote_down', as: 'vote_down'
 end
