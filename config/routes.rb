@@ -4,7 +4,9 @@ Easyblog::Application.routes.draw do
   resources :users
   resources :posts do
     member do
-      post :mark_archived
+      post :mark_archived      
     end
+
   end
+  post 'add_comment/:id' => 'comments#create', as: 'add_comments'
 end

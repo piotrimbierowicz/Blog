@@ -2,11 +2,27 @@
   %h2
     = post.title
     %small
-      = post.created_at
+      - date = post.created_at
+      =date.strftime("%d/%m/%Y : %H:%M ")      
   = link_to "edit", edit_post_path(post), class: 'post__button--edit'
-
   .post__body
     = post.body
   .post__tags-list.tagsinput
     - post.tags_array.each do |tag|
       = content_tag :span, tag, class: 'tag'
+.media
+  .media-body
+    %h4.media-heading
+      Add Comment
+    .comment_add
+      = simple_form_for Comment.new , :url => add_comments_path(post) , :remote => true do |f|
+        = f.input :content 
+        = f.button :submit 
+  - for comment in  @comments
+    .media
+      .media-body
+        - date = comment.created_at
+        %h4.media-heading
+          = comment.user 
+          =date.strftime("%d/%m/%Y : %H:%M ") 
+        = comment.content
