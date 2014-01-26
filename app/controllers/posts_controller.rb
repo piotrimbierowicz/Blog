@@ -43,12 +43,7 @@ class PostsController < ApplicationController
       render :new
     end
   end
-
   def comments
-  end
-
-  def hotness
-    return 3
   end
 
   private

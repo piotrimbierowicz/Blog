@@ -5,6 +5,6 @@ class Vote
 
 	belongs_to :comment
 	belongs_to :user
-	field :value , type: Boolean
+	field :value , type: Integer
 	
 end
