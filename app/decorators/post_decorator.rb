@@ -13,4 +13,8 @@ class PostDecorator < Draper::Decorator
   	date = created_at
   	return date.strftime("%d/%m/%Y : %H:%M") 
   end
+
+  def tags_array
+    return [1]
+  end
 end
